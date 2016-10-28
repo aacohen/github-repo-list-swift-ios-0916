@@ -14,11 +14,18 @@ class GithubRepository {
     let htmlURL: URL
     let repositoryID: String
     
+    
     init(dictionary: [String: Any]) {
-        fullName = dictionary["full_name"] as! String
-        let url = dictionary["html_url"] as! String
-        htmlURL = URL(string: url)
-        repositoryID = dictionary["id"] as! String
+        guard let
+        unwrappedFullName = dictionary["full_name"] as? String,
+        let unwrappedUrl1 = dictionary["html_url"] as? String,
+        let unwrappedHtmlURL = URL(string: unwrappedUrl1),
+        let unwrappedRepositoryID = dictionary["id"] as? Int
+        else { fatalError("error") }
+        
+        htmlURL = unwrappedHtmlURL
+        fullName = unwrappedFullName
+        repositoryID = String(unwrappedRepositoryID)
     }
     
 }
